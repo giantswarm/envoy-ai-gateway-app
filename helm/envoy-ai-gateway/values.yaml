@@ -82,7 +82,7 @@ controller:
 
   # -- Deployment configs --
   image:
-    repository: docker.io/envoyproxy/ai-gateway-controller
+    repository: gsoci.azurecr.io/giantswarm/envoyproxy-ai-gateway-controller
     # Overrides the image tag whose default is the chart appVersion.
     tag: ""
   imagePullPolicy: IfNotPresent

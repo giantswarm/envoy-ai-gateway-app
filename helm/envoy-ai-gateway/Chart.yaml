@@ -4,7 +4,7 @@
 apiVersion: v2
 
 # Version of the packaged app
-appVersion: 0.4.0
+appVersion: v0.4.0
 
 # Make sure your name DOES NOT end in "app" or "-app".
 name: envoy-ai-gateway
