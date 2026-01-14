@@ -1,5 +1,5 @@
 diff --git a/vendor/ai-gateway-helm/values.yaml b/helm/envoy-ai-gateway/values.yaml
-index e49e6f8..1d919ab 100644
+index e49e6f8..59b129b 100644
 --- a/vendor/ai-gateway-helm/values.yaml
 +++ b/helm/envoy-ai-gateway/values.yaml
 @@ -17,7 +17,7 @@ endpointConfig:
@@ -45,3 +45,9 @@ index e49e6f8..1d919ab 100644
    nodeSelector: {}
    tolerations: []
    affinity: {}
+@@ -187,4 +203,4 @@ controller:
+ # Configuration for the Envoy Gateway component that AI Gateway relies on to program Envoy.
+ envoyGateway:
+   # The namespace where the Envoy Gateway controller is installed.
+-  namespace : envoy-gateway-system
++  namespace: envoy-gateway-system
