@@ -4,7 +4,7 @@
 apiVersion: v2
 
 # Version of the packaged app
-appVersion: 0.4.0
+appVersion: v0.4.0
 
 # Make sure your name DOES NOT end in "app" or "-app".
 name: envoy-ai-gateway
@@ -17,7 +17,6 @@ home: https://github.com/giantswarm/envoy-ai-gateway-app
 
 # If you have an icon/logo, you should add it to https://github.com/giantswarm/web-assets
 # and set the final URL as a value here and uncomment.
-#icon: https://s.giantswarm.io/app-icons/example/1/light.svg
 icon: https://raw.githubusercontent.com/envoyproxy/ai-gateway/refs/heads/main/site/static/img/logo.svg
 keywords:
 - gateway-api

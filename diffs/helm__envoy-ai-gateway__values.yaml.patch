@@ -1,5 +1,5 @@
 diff --git a/vendor/ai-gateway-helm/values.yaml b/helm/envoy-ai-gateway/values.yaml
-index e49e6f8..1d919ab 100644
+index e49e6f8..b7da11c 100644
 --- a/vendor/ai-gateway-helm/values.yaml
 +++ b/helm/envoy-ai-gateway/values.yaml
 @@ -17,7 +17,7 @@ endpointConfig:
@@ -8,6 +8,15 @@ index e49e6f8..1d919ab 100644
    image:
 -    repository: docker.io/envoyproxy/ai-gateway-extproc
 +    repository: gsoci.azurecr.io/giantswarm/envoyproxy-ai-gateway-extproc
+     # Overrides the image tag whose default is the chart appVersion.
+     tag: ""
+   imagePullPolicy: IfNotPresent
+@@ -82,7 +82,7 @@ controller:
+ 
+   # -- Deployment configs --
+   image:
+-    repository: docker.io/envoyproxy/ai-gateway-controller
++    repository: gsoci.azurecr.io/giantswarm/envoyproxy-ai-gateway-controller
      # Overrides the image tag whose default is the chart appVersion.
      tag: ""
    imagePullPolicy: IfNotPresent
@@ -45,3 +54,20 @@ index e49e6f8..1d919ab 100644
    nodeSelector: {}
    tolerations: []
    affinity: {}
+@@ -178,8 +194,8 @@ controller:
+   # maxRecvMsgSize: "4194304"
+ 
+   # mcpSessionEncryptionSeed is an arbitrary string seed used to derive the MCP session encryption key.
+-  #	Do not include commas as they are used as separators. You can optionally pass "fallback" seed after the first one to allow for key rotation.
+-  #	For example: "new-seed,old-seed-for-fallback". The fallback seed is only used for decryption.
++  # Do not include commas as they are used as separators. You can optionally pass "fallback" seed after the first one to allow for key rotation.
++  # For example: "new-seed,old-seed-for-fallback". The fallback seed is only used for decryption.
+   #
+   # This value should be set to a secure random string in production environments instead of the default below.
+   mcpSessionEncryptionSeed: "default-insecure-seed"
+@@ -187,4 +203,4 @@ controller:
+ # Configuration for the Envoy Gateway component that AI Gateway relies on to program Envoy.
+ envoyGateway:
+   # The namespace where the Envoy Gateway controller is installed.
+-  namespace : envoy-gateway-system
++  namespace: envoy-gateway-system
