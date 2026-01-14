@@ -17,7 +17,7 @@ endpointConfig:
 
 extProc:
   image:
-    repository: docker.io/envoyproxy/ai-gateway-extproc
+    repository: gsoci.azurecr.io/giantswarm/envoyproxy-ai-gateway-extproc
     # Overrides the image tag whose default is the chart appVersion.
     tag: ""
   imagePullPolicy: IfNotPresent
@@ -90,7 +90,18 @@ controller:
   imagePullSecrets: []
   podAnnotations: {}
   podSecurityContext: {}
-  securityContext: {}
+  securityContext:
+    allowPrivilegeEscalation: false
+    capabilities:
+      drop:
+      - ALL
+    privileged: false
+    runAsNonRoot: true
+    runAsGroup: 65532
+    runAsUser: 65532
+    readOnlyRootFilesystem: true
+    seccompProfile:
+      type: RuntimeDefault
   # DEPRECATED: podEnv will be removed after v0.3. Use controller.extraEnvVars instead.
   # Example of a podEnv
   # AWS STS request when rotating OIDC credentials will be configured to use AI_GATEWAY_STS_PROXY_URL proxy if set.
@@ -166,7 +177,12 @@ controller:
       # The name of the certificate.
       certificateName: self-signed-cert-for-mutating-webhook
 
-  resources: {}
+  resources:
+    limits:
+      memory: 1024Mi
+    requests:
+      cpu: 100m
+      memory: 256Mi
   nodeSelector: {}
   tolerations: []
   affinity: {}
