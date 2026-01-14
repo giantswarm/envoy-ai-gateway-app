@@ -12,10 +12,10 @@ cd "${repo_dir}"
 readonly script_dir_rel=".${script_dir#"${repo_dir}"}"
 
 set -x
-rm -rf ./helm/envoy-gateway/crds/gatewayapi-crds.yaml
-mv ./helm/envoy-gateway/crds/generated ./helm/envoy-gateway/templates/crds
+mkdir ./helm/envoy-ai-gateway/templates/crds
+cp ./vendor/ai-gateway-crds-helm/templates/* ./helm/envoy-ai-gateway/templates/crds
 
-templates_path="./helm/envoy-gateway/templates/crds"
+templates_path="./helm/envoy-ai-gateway/templates/crds"
 
 set -x
 
