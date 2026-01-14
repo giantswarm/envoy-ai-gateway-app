@@ -1,6 +1,6 @@
-diff --git a/helm/envoy-ai-gateway/templates/_helpers.tpl b/helm/envoy-ai-gateway/templates/_helpers.tpl
+diff --git a/vendor/ai-gateway-helm/templates/_helpers.tpl b/helm/envoy-ai-gateway/templates/_helpers.tpl
 index aa0e208..aae7793 100644
---- a/helm/envoy-ai-gateway/templates/_helpers.tpl
+--- a/vendor/ai-gateway-helm/templates/_helpers.tpl
 +++ b/helm/envoy-ai-gateway/templates/_helpers.tpl
 @@ -47,6 +47,7 @@ helm.sh/chart: {{ include "ai-gateway-helm.chart" . }}
  app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}

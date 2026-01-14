@@ -4,13 +4,13 @@
 apiVersion: v2
 
 # Version of the packaged app
-appVersion: 0.0.1
+appVersion: 0.4.0
 
 # Make sure your name DOES NOT end in "app" or "-app".
 name: envoy-ai-gateway
 
 # Please describe what the app provides in a sentence or two.
-description: Please add description
+description: The Helm chart for Envoy AI Gateway
 
 # URL of the GitHub repository that is the source of this Chart.yaml file.
 home: https://github.com/giantswarm/envoy-ai-gateway-app
@@ -18,14 +18,20 @@ home: https://github.com/giantswarm/envoy-ai-gateway-app
 # If you have an icon/logo, you should add it to https://github.com/giantswarm/web-assets
 # and set the final URL as a value here and uncomment.
 #icon: https://s.giantswarm.io/app-icons/example/1/light.svg
+icon: https://raw.githubusercontent.com/envoyproxy/ai-gateway/refs/heads/main/site/static/img/logo.svg
+keywords:
+- gateway-api
+- envoyproxy
+- envoy-gateway
+- eg
+- ai-gateway
+- ai
 
 sources:
-- https://github.com/some-org/some-repo
+- https://github.com/envoyproxy/ai-gateway
+type: application
 version: 0.0.0-dev
 annotations:
-  # Adapt to 'giantswarm' if this application is not to be deployed by customers
   io.giantswarm.application.audience: all
-  # Adapt to 'true' if Giant Swarm takes responsibility for this app where it's deplyed
-  io.giantswarm.application.managed: "false"
-  # used through .Chart.Annotations . Please replace TEAM-NAME with your team's short name, e. g. 'shield'  for team-shield
-  io.giantswarm.application.team: TEAM-NAME
+  io.giantswarm.application.managed: "true"
+  io.giantswarm.application.team: cabbage
