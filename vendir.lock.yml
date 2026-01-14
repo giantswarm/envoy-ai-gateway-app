@@ -1,0 +1,17 @@
+apiVersion: vendir.k14s.io/v1alpha1
+directories:
+- contents:
+  - helmChart:
+      appVersion: v0.4.0
+      version: v0.4.0
+    path: ai-gateway-crds-helm
+  - helmChart:
+      appVersion: v0.4.0
+      version: v0.4.0
+    path: ai-gateway-helm
+  path: vendor
+- contents:
+  - directory: {}
+    path: .
+  path: helm/envoy-ai-gateway
+kind: LockConfig

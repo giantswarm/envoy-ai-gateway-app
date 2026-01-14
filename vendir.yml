@@ -1,0 +1,25 @@
+apiVersion: vendir.k14s.io/v1alpha1
+kind: Config
+directories:
+- path: vendor
+  contents:
+  - path: ai-gateway-crds-helm
+    helmChart:
+      name: ai-gateway-crds-helm
+      version: v0.4.0
+      repository:
+        url: oci://docker.io/envoyproxy
+  - path: ai-gateway-helm
+    helmChart:
+      name: ai-gateway-helm
+      version: v0.4.0
+      repository:
+        url: oci://docker.io/envoyproxy
+- path: helm/envoy-ai-gateway
+  contents:
+  - path: .
+    directory:
+      path: vendor/ai-gateway-helm
+    ignorePaths:
+      - Chart.yaml
+      - Chart.lock
