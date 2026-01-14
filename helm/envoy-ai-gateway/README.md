@@ -1,12 +1,12 @@
 # envoy-ai-gateway
 
-Please add description
+The Helm chart for Envoy AI Gateway
 
 **Homepage:** <https://github.com/giantswarm/envoy-ai-gateway-app>
 
 ## Source Code
 
-* <https://github.com/some-org/some-repo>
+* <https://github.com/envoyproxy/ai-gateway>
 
 ## Usage
 
