@@ -17,7 +17,7 @@ endpointConfig:
 
 extProc:
   image:
-    repository: gsoci.azurecr.io/giantswarm/envoyproxy-ai-gateway-extproc
+    repository: docker.io/envoyproxy/ai-gateway-extproc
     # Overrides the image tag whose default is the chart appVersion.
     tag: ""
   imagePullPolicy: IfNotPresent
@@ -82,7 +82,7 @@ controller:
 
   # -- Deployment configs --
   image:
-    repository: gsoci.azurecr.io/giantswarm/envoyproxy-ai-gateway-controller
+    repository: docker.io/envoyproxy/ai-gateway-controller
     # Overrides the image tag whose default is the chart appVersion.
     tag: ""
   imagePullPolicy: IfNotPresent
@@ -90,18 +90,7 @@ controller:
   imagePullSecrets: []
   podAnnotations: {}
   podSecurityContext: {}
-  securityContext:
-    allowPrivilegeEscalation: false
-    capabilities:
-      drop:
-      - ALL
-    privileged: false
-    runAsNonRoot: true
-    runAsGroup: 65532
-    runAsUser: 65532
-    readOnlyRootFilesystem: true
-    seccompProfile:
-      type: RuntimeDefault
+  securityContext: {}
   # DEPRECATED: podEnv will be removed after v0.3. Use controller.extraEnvVars instead.
   # Example of a podEnv
   # AWS STS request when rotating OIDC credentials will be configured to use AI_GATEWAY_STS_PROXY_URL proxy if set.
@@ -177,12 +166,7 @@ controller:
       # The name of the certificate.
       certificateName: self-signed-cert-for-mutating-webhook
 
-  resources:
-    limits:
-      memory: 1024Mi
-    requests:
-      cpu: 100m
-      memory: 256Mi
+  resources: {}
   nodeSelector: {}
   tolerations: []
   affinity: {}
@@ -194,8 +178,8 @@ controller:
   # maxRecvMsgSize: "4194304"
 
   # mcpSessionEncryptionSeed is an arbitrary string seed used to derive the MCP session encryption key.
-  # Do not include commas as they are used as separators. You can optionally pass "fallback" seed after the first one to allow for key rotation.
-  # For example: "new-seed,old-seed-for-fallback". The fallback seed is only used for decryption.
+  #	Do not include commas as they are used as separators. You can optionally pass "fallback" seed after the first one to allow for key rotation.
+  #	For example: "new-seed,old-seed-for-fallback". The fallback seed is only used for decryption.
   #
   # This value should be set to a secure random string in production environments instead of the default below.
   mcpSessionEncryptionSeed: "default-insecure-seed"
@@ -203,4 +187,4 @@ controller:
 # Configuration for the Envoy Gateway component that AI Gateway relies on to program Envoy.
 envoyGateway:
   # The namespace where the Envoy Gateway controller is installed.
-  namespace: envoy-gateway-system
+  namespace : envoy-gateway-system
