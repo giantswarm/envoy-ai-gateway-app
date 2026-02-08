@@ -10,9 +10,7 @@ name: envoy-ai-gateway
 description: The Helm chart for Envoy AI Gateway
 # URL of the GitHub repository that is the source of this Chart.yaml file.
 home: https://github.com/giantswarm/envoy-ai-gateway-app
-# If you have an icon/logo, you should add it to https://github.com/giantswarm/web-assets
-# and set the final URL as a value here and uncomment.
-icon: https://raw.githubusercontent.com/envoyproxy/ai-gateway/refs/heads/main/site/static/img/logo.svg
+icon: https://s.giantswarm.io/app-icons/envoy-ai-gateway/1/light.svg
 keywords:
   - gateway-api
   - envoyproxy
