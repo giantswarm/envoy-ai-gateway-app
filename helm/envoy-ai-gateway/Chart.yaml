@@ -21,7 +21,7 @@ keywords:
 sources:
   - https://github.com/envoyproxy/ai-gateway
 type: application
-version: 0.1.0
+version: 0.1.1
 annotations:
   io.giantswarm.application.audience: all
   io.giantswarm.application.managed: "true"

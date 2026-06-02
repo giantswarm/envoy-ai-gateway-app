@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.1] - 2026-06-02
+
 ### Changed
 
 - Update chart icon to use Giant Swarm-hosted Envoy AI Gateway icon.
@@ -17,5 +19,6 @@ Initial release
 
 - changed: `app.giantswarm.io` label group was changed to `application.giantswarm.io`
 
-[Unreleased]: https://github.com/giantswarm/envoy-ai-gateway-app/compare/v0.1.0...HEAD
+[Unreleased]: https://github.com/giantswarm/envoy-ai-gateway-app/compare/v0.1.1...HEAD
+[0.1.1]: https://github.com/giantswarm/envoy-ai-gateway-app/compare/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/giantswarm/envoy-ai-gateway-app/releases/tag/v0.1.0
