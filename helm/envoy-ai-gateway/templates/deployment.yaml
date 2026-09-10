@@ -24,11 +24,15 @@ spec:
       labels:
         {{- include "ai-gateway-helm.controller.selectorLabels" . | nindent 8 }}
     spec:
-      {{- with .Values.controller.imagePullSecrets }}
+      {{- with (include "ai-gateway-helm.controller.imagePullSecrets" .) }}
       imagePullSecrets:
-        {{- toYaml . | nindent 8 }}
+        {{- . | nindent 8 }}
       {{- end }}
       serviceAccountName: {{ include "ai-gateway-helm.controller.serviceAccountName" . }}
+      hostNetwork: {{ .Values.controller.hostNetwork }}
+      {{- if .Values.controller.hostNetwork }}
+      dnsPolicy: ClusterFirstWithHostNet
+      {{- end }}
       securityContext:
         {{- toYaml .Values.controller.podSecurityContext | nindent 8 }}
       containers:
@@ -38,22 +42,47 @@ spec:
           image: "{{ .Values.controller.image.repository }}:{{ .Values.controller.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.controller.imagePullPolicy }}
           ports:
-            - containerPort: 9443
-            - containerPort: 1063
-            - containerPort: 9090
+            {{- range .Values.controller.service.ports }}
+            - containerPort: {{ .targetPort }}
+            {{- end }}
           args:
             - -logLevel={{ .Values.controller.logLevel }}
             - --extProcImage={{ .Values.extProc.image.repository }}:{{ .Values.extProc.image.tag | default .Chart.AppVersion }}
             - --extProcImagePullPolicy={{ .Values.extProc.imagePullPolicy }}
             - --extProcLogLevel={{ .Values.extProc.logLevel }}
-            {{- if .Values.extProc.imagePullSecrets }}
-            - --extProcImagePullSecrets={{ include "ai-gateway-helm.extProc.imagePullSecretsString" . }}
+            {{- if .Values.extProc.enableRedaction }}
+            - --extProcEnableRedaction=true
             {{- end }}
-            {{- if or .Values.controller.metricsRequestHeaderAttributes .Values.controller.metricsRequestHeaderLabels }}
-            - --metricsRequestHeaderAttributes={{ .Values.controller.metricsRequestHeaderAttributes | default .Values.controller.metricsRequestHeaderLabels }}
+            {{- with (include "ai-gateway-helm.extProc.imagePullSecretsString" .) }}
+            - --extProcImagePullSecrets={{ . }}
             {{- end }}
-            {{- if .Values.controller.spanRequestHeaderAttributes }}
+            {{- if .Values.controller.requestHeaderAttributes }}
+            - --requestHeaderAttributes={{ .Values.controller.requestHeaderAttributes }}
+            {{- end }}
+            {{- if ne .Values.controller.spanRequestHeaderAttributes nil }}
             - --spanRequestHeaderAttributes={{ .Values.controller.spanRequestHeaderAttributes }}
+            {{- end }}
+            {{- if .Values.controller.metricsRequestHeaderAttributes }}
+            - --metricsRequestHeaderAttributes={{ .Values.controller.metricsRequestHeaderAttributes }}
+            {{- end }}
+            {{- if ne .Values.controller.logRequestHeaderAttributes nil }}
+            - --logRequestHeaderAttributes={{ .Values.controller.logRequestHeaderAttributes }}
+            {{- end }}
+            {{- $endpointPrefixes := list -}}
+            {{- if hasKey .Values.endpointConfig "openai" -}}
+              {{- $openai := .Values.endpointConfig.openai -}}
+              {{- $endpointPrefixes = append $endpointPrefixes (printf "openai:%s" $openai) -}}
+            {{- end -}}
+            {{- if hasKey .Values.endpointConfig "cohere" -}}
+              {{- $cohere := .Values.endpointConfig.cohere -}}
+              {{- $endpointPrefixes = append $endpointPrefixes (printf "cohere:%s" $cohere) -}}
+            {{- end -}}
+            {{- if hasKey .Values.endpointConfig "anthropic" -}}
+              {{- $anthropic := .Values.endpointConfig.anthropic -}}
+              {{- $endpointPrefixes = append $endpointPrefixes (printf "anthropic:%s" $anthropic) -}}
+            {{- end -}}
+            {{- if $endpointPrefixes }}
+            - "--endpointPrefixes={{ join "," $endpointPrefixes }}"
             {{- end }}
             {{- if .Values.extProc.extraEnvVars }}
             - --extProcExtraEnvVars={{ include "ai-gateway-helm.extProc.envVarsString" . }}
@@ -61,6 +90,7 @@ spec:
             - --tlsCertDir=/certs
             - --tlsCertName={{ .Values.controller.mutatingWebhook.tlsCertName }}
             - --tlsKeyName={{ .Values.controller.mutatingWebhook.tlsKeyName }}
+            - --webhookPort={{ .Values.controller.mutatingWebhook.port }}
             {{- if .Values.controller.leaderElection.enabled }}
             - --enableLeaderElection=true
             {{- end }}
@@ -70,6 +100,15 @@ spec:
             {{- end }}
             - --cacheSyncTimeout={{ .Values.controller.watch.cacheSyncTimeout }}
             - --watchNamespaces={{ join "," .Values.controller.watch.namespaces }}
+            - --quotaRateLimitServiceAddr={{ .Values.controller.quotaRateLimitServiceAddr }}
+            - --quotaRateLimitTimeout={{ .Values.controller.quotaRateLimitTimeout }}
+            - --quotaRateLimitFailureModeDeny={{ .Values.controller.quotaRateLimitFailureModeDeny }}
+            - --mcpSessionEncryptionSeed={{ .Values.controller.mcp.sessionEncryption.seed }}
+            - --mcpSessionEncryptionIterations={{ .Values.controller.mcp.sessionEncryption.iterations }}
+            {{- if .Values.controller.mcp.sessionEncryption.fallback.seed }}
+            - --mcpFallbackSessionEncryptionSeed={{ .Values.controller.mcp.sessionEncryption.fallback.seed }}
+            - --mcpFallbackSessionEncryptionIterations={{ .Values.controller.mcp.sessionEncryption.fallback.iterations }}
+            {{- end }}
           livenessProbe:
             grpc:
               port: 1063
