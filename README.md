@@ -5,6 +5,12 @@
 
 # envoy-ai-gateway chart
 
+> [!WARNING]
+> **This app is deprecated and will be archived.**
+> Upstream Envoy AI Gateway was [renamed to Agent Router](https://theagentrouter.ai/blog/envoy-ai-gateway-is-now-agent-router/) and moved to the AAIF.
+> Use [agentgateway](https://github.com/giantswarm/agentgateway) instead.
+> Tracking issue: [giantswarm/giantswarm#37718](https://github.com/giantswarm/giantswarm/issues/37718).
+
 Giant Swarm offers a envoy-ai-gateway App which can be installed in workload clusters.
 Here, we define the envoy-ai-gateway chart with its templates and default configuration.
 

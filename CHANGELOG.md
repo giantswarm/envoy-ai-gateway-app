@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- **This chart is deprecated.** Upstream Envoy AI Gateway was [renamed to Agent Router](https://theagentrouter.ai/blog/envoy-ai-gateway-is-now-agent-router/) and moved to the AAIF. Use [agentgateway](https://github.com/giantswarm/agentgateway) instead. See [giantswarm/giantswarm#37718](https://github.com/giantswarm/giantswarm/issues/37718).
+  - `deprecated: true` set in `Chart.yaml`.
+  - The app has been removed from `gateway-api-bundle` ([#219](https://github.com/giantswarm/gateway-api-bundle/pull/219)).
+
 ## [0.1.1] - 2026-06-02
 
 ### Changed

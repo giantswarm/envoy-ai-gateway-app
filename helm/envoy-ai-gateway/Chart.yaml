@@ -22,6 +22,10 @@ sources:
   - https://github.com/envoyproxy/ai-gateway
 type: application
 version: 0.1.1
+# This chart is deprecated. Upstream Envoy AI Gateway was renamed to Agent Router
+# and moved to the AAIF. Use https://github.com/giantswarm/agentgateway instead.
+# See https://github.com/giantswarm/giantswarm/issues/37718
+deprecated: true
 annotations:
   io.giantswarm.application.audience: all
   io.giantswarm.application.managed: "true"
